@@ -1,5 +1,3 @@
-import React from "react";
-
 const EventCardSkeleton = () => {
   return (
     <div className="w-[300px] h-[50%] p-4 bg-white dark:bg-gray-700 rounded-xl shadow animate-pulse">

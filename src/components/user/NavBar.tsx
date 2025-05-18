@@ -8,7 +8,7 @@ import {
   FaLanguage,
 } from "react-icons/fa";
 import { useNavigate, NavLink } from "react-router-dom";
-import { useAuth } from "../../context/authContext";
+import { UseAuth } from "../../context/authContext";
 import logo from "../../assets/logo.png";
 import darkLogo from "../../assets/white_logo.png";
 import { useTheme } from "../../context/ThemeContext";
@@ -28,7 +28,7 @@ const eventCategories: string[] = [
 
 const NavBar = () => {
   const navigate = useNavigate();
-  const { isAuthenticated, user, isAdmin, logout } = useAuth();
+  const { isAuthenticated, user, isAdmin, logout } = UseAuth();
   const { theme, toggleTheme } = useTheme();
   const { t, i18n } = useTranslation();
 

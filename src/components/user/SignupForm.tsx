@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../context/authContext";
+import { UseAuth } from "../../context/authContext";
 import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
 
@@ -9,7 +9,7 @@ const SignupForm = () => {
   const [password, setPassword] = React.useState("");
   const [firstName, setFirstName] = React.useState("");
   const [lastName, setLastName] = React.useState("");
-  const { login } = useAuth();
+  const { login } = UseAuth();
   const [isLoading, setIsLoading] = React.useState(false);
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();

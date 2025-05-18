@@ -1,4 +1,5 @@
-import React, {
+/* eslint-disable react-hooks/exhaustive-deps */
+import {
   createContext,
   useContext,
   useState,
@@ -51,7 +52,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         logout();
       }
     }
-  }, []);
+  });
 
   const login = async (userData: User) => {
     setUser(userData);
@@ -133,7 +134,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-export const useAuth = () => {
+export const UseAuth = () => {
   const context = useContext(AuthContext);
   if (context === undefined) {
     throw new Error("useAuth must be used within an AuthProvider");

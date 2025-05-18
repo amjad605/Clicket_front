@@ -5,11 +5,11 @@ import { useRef, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Footer from "../../components/user/Footer";
-import { useAuth } from "../../context/authContext";
+import { UseAuth } from "../../context/authContext";
 import { useTranslation } from "react-i18next";
 
 const Landing = () => {
-  const { isAdmin } = useAuth();
+  const { isAdmin } = UseAuth();
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
 

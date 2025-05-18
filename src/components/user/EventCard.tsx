@@ -1,5 +1,5 @@
 import React from "react";
-import { useAuth } from "../../context/authContext";
+import { UseAuth } from "../../context/authContext";
 import CategoryTag from "./CategoryTag";
 import { useNavigate } from "react-router-dom";
 import success from "../../assets/success.json";
@@ -28,7 +28,7 @@ interface Props {
 
 export const EventCard = ({ event }: Props) => {
   const navigate = useNavigate();
-  const { user, isAuthenticated } = useAuth();
+  const { user, isAuthenticated } = UseAuth();
   const { t } = useTranslation();
   const [isBooked, setIsBooked] = React.useState(
     user?.bookedEvents.includes(event._id) || false

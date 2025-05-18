@@ -1,4 +1,3 @@
-import React from "react";
 import EventsLists from "../../components/user/EventsList";
 
 const Category = () => {

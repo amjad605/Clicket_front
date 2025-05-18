@@ -1,5 +1,5 @@
 import React from "react";
-import { useAuth } from "../../context/authContext";
+import { UseAuth } from "../../context/authContext";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 const LoginForm = () => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const { login } = useAuth();
+  const { login } = UseAuth();
   const [isLoading, setIsLoading] = React.useState(false);
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();

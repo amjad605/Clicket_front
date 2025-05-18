@@ -4,7 +4,7 @@ import Lottie from "lottie-react";
 import successAnimation from "../../assets/success.json";
 import { useParams, useNavigate } from "react-router-dom";
 import type { EventType } from "../../components/user/EventCard";
-import { useAuth } from "../../context/authContext";
+import { UseAuth } from "../../context/authContext";
 const EventDetails = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
@@ -76,7 +76,7 @@ const EventDetails = () => {
       setError(err instanceof Error ? err.message : "Booking failed");
     }
   };
-  const { user, isAuthenticated } = useAuth();
+  const { user, isAuthenticated } = UseAuth();
   const [isBooked, setIsBooked] = React.useState(
     user?.bookedEvents.includes(id!) || false
   );

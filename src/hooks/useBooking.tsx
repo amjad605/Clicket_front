@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { useAuth } from "../context/authContext"; // غير المسار حسب مشروعك
+import { UseAuth } from "../context/authContext"; // غير المسار حسب مشروعك
 
 export const useBooking = () => {
-  const { updateBookedEvents, fetchUser } = useAuth();
+  const { updateBookedEvents, fetchUser } = UseAuth();
   const [isBookedLoading, setIsBookedLoading] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
 
