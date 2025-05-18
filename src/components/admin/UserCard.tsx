@@ -47,7 +47,7 @@ const UserCard = ({ user }: { user: UserType }) => {
         `https://clicket.up.railway.app/users/${user._id}`,
         {
           method: "PUT",
-
+          credentials: "include",
           headers: {
             "Content-Type": "application/json",
             authorization: `Bearer ${localStorage.getItem("token")}`,

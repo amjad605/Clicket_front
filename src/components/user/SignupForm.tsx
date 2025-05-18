@@ -22,6 +22,7 @@ const SignupForm = () => {
         "https://clicket.up.railway.app/auth/signup",
         {
           method: "POST",
+          credentials: "include",
           headers: {
             "Content-Type": "application/json",
           },

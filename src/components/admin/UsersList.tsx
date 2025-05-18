@@ -17,7 +17,7 @@ const UsersList = () => {
           `https://clicket.up.railway.app/users?page=${page}&limit=${limit}`,
           {
             method: "GET",
-
+            credentials: "include",
             headers: {
               authorization: `Bearer ${localStorage.getItem("token")}`,
               "Content-Type": "application/json",

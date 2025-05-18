@@ -100,8 +100,10 @@ const EventAdminCard = ({ event }: Props) => {
     try {
       const response = await fetch(
         `https://clicket.up.railway.app/events/${event._id}`,
+
         {
           method: "DELETE",
+          credentials: "include",
 
           headers: {
             "Content-Type": "application/json",

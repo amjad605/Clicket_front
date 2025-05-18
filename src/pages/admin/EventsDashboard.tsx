@@ -61,7 +61,7 @@ const EventsDashboard = () => {
 
       const response = await fetch("https://clicket.up.railway.app/events", {
         method: "POST",
-
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
           authorization: `Bearer ${localStorage.getItem("token")}`,

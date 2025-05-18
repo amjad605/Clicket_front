@@ -20,6 +20,7 @@ const LoginForm = () => {
         "https://clicket.up.railway.app/auth/login",
         {
           method: "POST",
+
           headers: {
             "Content-Type": "application/json",
           },

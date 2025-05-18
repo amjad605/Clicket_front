@@ -29,6 +29,7 @@ const EventDetails = () => {
           `https://clicket.up.railway.app/events/id/${id}`,
           {
             method: "GET",
+            credentials: "include",
             headers: {
               "Content-Type": "application/json",
               authorization: `Bearer ${localStorage.getItem("token")}`,
