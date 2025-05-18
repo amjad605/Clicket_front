@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+.animate-gentle-float {
+  animation: gentle-float 4s ease-in-out infinite;
+}
+@theme {
+  @keyframes gentle-float {
+    0%,
+    100% {
+      transform: translateY(0) rotate(0.9deg);
+    }
+    25% {
+      transform: translateY(-10px) rotate(-0.9deg);
+    }
+    50% {
+      transform: translateY(-15px) rotate(0.9deg);
+    }
+    75% {
+      transform: translateY(-10px) rotate(-0.9deg);
+    }
+  }
+}
+@custom-variant dark (&:where(.dark, .dark *));
+@layer base {
+  @variant dark {
+    .dark {
+      background-color: #333;
+    }
+  }
+}
