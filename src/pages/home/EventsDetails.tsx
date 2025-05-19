@@ -5,6 +5,7 @@ import successAnimation from "../../assets/success.json";
 import { useParams, useNavigate } from "react-router-dom";
 import type { EventType } from "../../components/user/EventCard";
 import { UseAuth } from "../../context/authContext";
+import congrat from "../../assets/congrat.json";
 const EventDetails = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
@@ -83,17 +84,22 @@ const EventDetails = () => {
   );
   if (showSuccess) {
     return (
-      <div className="fixed inset-0 bg-white bg-opacity-20 flex items-center justify-center z-50">
-        <div className="bg-white p-8 rounded-lg max-w-md text-center">
-          <Lottie animationData={successAnimation} loop={false} />
-          <h2 className="text-2xl font-bold mb-2">Congratulations!</h2>
-          <p className="mb-4">You've successfully booked "{event?.name}"</p>
+      <div className="fixed inset-0  dark:bg-gray-900 bg-white bg-opacity-20 flex items-center justify-center z-50">
+        <div className="bg-white  dark:bg-gray-900  p-8 rounded-lg max-w-md text-center flex flex-col items-center justify-center">
+          <Lottie
+            animationData={successAnimation}
+            loop={false}
+            className="w-[70%]"
+          />
+          <div className="w-[80%] p-0 m-auto">
+            <Lottie animationData={congrat} loop={false} />
+          </div>
+          <p className="mb-2">You've successfully booked "{event?.name}"</p>
           <p className="text-gray-500">Returning to events in a moment...</p>
         </div>
       </div>
     );
   }
-
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-screen">

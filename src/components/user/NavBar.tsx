@@ -86,6 +86,7 @@ const NavBar = () => {
 
   const goToMiddle = () => {
     navigate("/landing", { state: { scrollTo: "middle" } });
+    setIsMenuOpen(false);
   };
 
   const mobileLinkClass = ({ isActive }: { isActive: boolean }) =>

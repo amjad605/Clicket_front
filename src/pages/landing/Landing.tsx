@@ -68,7 +68,10 @@ const Landing = () => {
 
       <Categories />
 
-      <div className="flex flex-col  w-full items-center justify-center  lg:flex-row lg:items-start md:items-start  dark:bg-gray-900">
+      <div
+        ref={middleRef}
+        className="flex flex-col  w-full items-center justify-center  lg:flex-row lg:items-start md:items-start  dark:bg-gray-900"
+      >
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -76,7 +79,6 @@ const Landing = () => {
           transition={{ duration: 1 }}
         >
           <p
-            ref={middleRef}
             className="
     text-3xl md:text-4xl lg:text-5xl text-[rgb(11,53,88)] dark:text-white font-bold dark:bg-gray-900  md:w-screen md:ms-[6%] md:justify-center
   "
