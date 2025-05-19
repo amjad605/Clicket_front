@@ -14,7 +14,7 @@ const EventsLists = () => {
 
   const { events, totalPages, loading, error } = useEvents(category, page);
 
-  if (!loading)
+  if (loading)
     return (
       <div className=" w-screen flex items-center dark:bg-gray-900">
         {" "}
