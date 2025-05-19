@@ -14,9 +14,9 @@ const EventsLists = () => {
 
   const { events, totalPages, loading, error } = useEvents(category, page);
 
-  if (loading)
+  if (!loading)
     return (
-      <div className=" w-full h-screen dark:bg-gray-900">
+      <div className=" w-screen flex items-center dark:bg-gray-900">
         {" "}
         <SkeletonList />
       </div>
