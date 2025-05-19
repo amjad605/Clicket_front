@@ -38,7 +38,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  const isAdmin = user?.isAdmin === true;
+  const [isAdmin, setIsAdmin] = useState<boolean>(user?.isAdmin || false);
 
   useEffect(() => {
     const storedUser = localStorage.getItem(USER_STORAGE_KEY);
@@ -57,6 +57,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const login = async (userData: User) => {
     setUser(userData);
     setIsAuthenticated(true);
+    setIsAdmin(userData.isAdmin);
 
     localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(userData));
   };

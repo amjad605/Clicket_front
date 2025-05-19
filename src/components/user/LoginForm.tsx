@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 const LoginForm = () => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const { login } = UseAuth();
+  const { login, setAdmin } = UseAuth();
   const [isLoading, setIsLoading] = React.useState(false);
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
