@@ -25,21 +25,29 @@ interface AuthContextType {
   fetchUser: () => Promise<void>;
   login: (userData: User) => Promise<void>;
   logout: () => void;
-  updateBookedEvents: (eventId: string) => Promise<void>; // New function
+  updateBookedEvents: (eventId: string) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-// LocalStorage keys
 const USER_STORAGE_KEY = "user";
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const navigate = useNavigate();
   const [user, setUser] = useState<User | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAdmin, setIsAdmin] = useState<boolean>(false);
 
-  const [isAdmin, setIsAdmin] = useState<boolean>(user?.isAdmin || false);
+  // update isAdmin whenever user changes
+  useEffect(() => {
+    if (user) {
+      setIsAdmin(user.isAdmin);
+    } else {
+      setIsAdmin(false);
+    }
+  }, [user]);
 
+  // load user from localStorage on first load
   useEffect(() => {
     const storedUser = localStorage.getItem(USER_STORAGE_KEY);
     if (storedUser) {
@@ -52,18 +60,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         logout();
       }
     }
-  });
+  }, []);
 
   const login = async (userData: User) => {
     setUser(userData);
     setIsAuthenticated(true);
-    setIsAdmin(userData.isAdmin);
-
     localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(userData));
   };
 
   const logout = async () => {
-    await fetch("https://clicket.up.railway.app/auth/logout ", {
+    await fetch("https://clicket.up.railway.app/auth/logout", {
       method: "POST",
       credentials: "include",
       headers: {
@@ -75,9 +81,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     toast.success("Logged Out Successfully");
     setUser(null);
     setIsAuthenticated(false);
-
     localStorage.clear();
   };
+
   const fetchUser = async () => {
     try {
       const res = await fetch("https://clicket.up.railway.app/auth/me", {
@@ -112,13 +118,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setUser(updatedUser);
     localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(updatedUser));
   };
+
+  // fetch user periodically
   useEffect(() => {
     fetchUser();
-
     const intervalId = setInterval(fetchUser, 5 * 60 * 1000);
-
     return () => clearInterval(intervalId);
   }, []);
+
   return (
     <AuthContext.Provider
       value={{
