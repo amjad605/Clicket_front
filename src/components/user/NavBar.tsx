@@ -6,6 +6,7 @@ import {
   FaSun,
   FaEllipsisV,
   FaLanguage,
+  FaTimes,
 } from "react-icons/fa";
 import { useNavigate, NavLink } from "react-router-dom";
 import { UseAuth } from "../../context/authContext";
@@ -58,7 +59,24 @@ const NavBar = () => {
     logout();
     navigate("/landing");
   };
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
 
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setOpen(false);
+      }
+      if (
+        mobileMenuRef.current &&
+        !mobileMenuRef.current.contains(event.target as Node) &&
+        !(event.target as HTMLElement).closest('button[aria-label="Menu"]')
+      ) {
+        setIsMenuOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
   const handleLanguageChange = () => {
     const newLang = i18n.language === "en" ? "ar" : "en";
     i18n.changeLanguage(newLang);
@@ -69,6 +87,11 @@ const NavBar = () => {
   const goToMiddle = () => {
     navigate("/landing", { state: { scrollTo: "middle" } });
   };
+
+  const mobileLinkClass = ({ isActive }: { isActive: boolean }) =>
+    isActive
+      ? "text-blue-600 font-bold text-xl"
+      : "text-[rgb(11,53,88)] dark:text-white hover:text-blue-500 transition font-bold text-xl";
 
   const linkClass = ({ isActive }: { isActive: boolean }) =>
     isActive
@@ -239,10 +262,130 @@ const NavBar = () => {
 
       {/* Mobile menu - you should implement this similarly */}
       <div
-        className={`lg:hidden fixed inset-0 bg-white z-50 flex flex-col items-center justify-center ${
-          isMenuOpen ? "flex" : "hidden"
+        ref={mobileMenuRef}
+        className={`lg:hidden fixed inset-0 bg-white dark:bg-gray-950 z-50 flex flex-col items-center justify-center p-4 transition-all duration-300 ${
+          isMenuOpen
+            ? "opacity-100 translate-x-0"
+            : "opacity-0 translate-x-full pointer-events-none"
         }`}
-      ></div>
+      >
+        <button
+          className="absolute top-4 right-4 p-2"
+          onClick={() => setIsMenuOpen(false)}
+        >
+          <FaTimes size={24} className="dark:text-white" />
+        </button>
+
+        <div className="flex flex-col items-center space-y-8 w-full">
+          <NavLink
+            to="/landing"
+            className={mobileLinkClass}
+            onClick={() => setIsMenuOpen(false)}
+          >
+            {t("home")}
+          </NavLink>
+
+          <button
+            onClick={goToMiddle}
+            className="text-[rgb(11,53,88)] dark:text-white hover:text-blue-500 transition font-bold text-xl"
+          >
+            {t("events")}
+          </button>
+
+          <div className="relative w-full text-center">
+            <button
+              className="text-[rgb(11,53,88)] dark:text-white hover:text-blue-500 transition font-bold text-xl"
+              onClick={() => setIsCategoriesOpen(!isCategoriesOpen)}
+            >
+              {t("categories")}
+            </button>
+            {isCategoriesOpen && (
+              <div className="mt-4 space-y-4">
+                {eventCategories.map((category) => (
+                  <NavLink
+                    key={category}
+                    to={`/category/${category}`}
+                    className="block px-4 py-2 dark:text-white hover:text-blue-500 text-gray-800 dark:text-gray-200"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {t(`Categories.${category.toLowerCase()}`)}
+                  </NavLink>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {isAdmin && (
+            <NavLink
+              to="/dashboard"
+              className={mobileLinkClass}
+              onClick={() => setIsMenuOpen(false)}
+            >
+              {t("manage_events")}
+            </NavLink>
+          )}
+
+          {isAuthenticated ? (
+            <div className="flex flex-col items-center space-y-6 mt-4 w-full">
+              <div className="flex items-center space-x-2">
+                <div className="flex items-center m-3 p-2 rounded-full bg-gray-300">
+                  <FaUser size={18} color="rgb(11,53,88)" />
+                </div>
+                <p className="text-[rgb(11,53,88)] dark:text-white">
+                  {t("welcome", { name: user?.firstName })}
+                </p>
+              </div>
+
+              <div className="flex flex-col space-y-4 w-full max-w-xs">
+                <button
+                  onClick={handleLanguageChange}
+                  className="flex items-center justify-center gap-2 px-4 py-2 w-full hover:bg-gray-100 dark:hover:bg-gray-800 rounded"
+                >
+                  <FaLanguage />
+                  <span>{i18n.language === "en" ? "العربية" : "English"}</span>
+                </button>
+
+                <button
+                  onClick={toggleTheme}
+                  className="flex items-center justify-center gap-2 px-4 py-2 w-full hover:bg-gray-100 dark:hover:bg-gray-800 rounded"
+                >
+                  {theme === "light" ? <FaMoon /> : <FaSun />}
+                  <span>
+                    {theme === "light" ? t("dark_mode") : t("light_mode")}
+                  </span>
+                </button>
+
+                <button
+                  onClick={handleLogout}
+                  className="flex items-center justify-center gap-2 px-4 py-2 w-full hover:bg-gray-100 dark:hover:bg-gray-800 rounded text-red-500"
+                >
+                  <FaSignOutAlt />
+                  <span>{t("logout")}</span>
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div className="flex flex-col space-y-4 w-full max-w-xs mt-4">
+              <NavLink
+                to="/login"
+                className="text-center py-2 hover:text-blue-500 transition"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                {t("login")}
+              </NavLink>
+              <button
+                onClick={() => {
+                  navigate("/signup");
+                  setIsMenuOpen(false);
+                }}
+                className="bg-blue-500 rounded-2xl px-4 py-2 text-white hover:bg-blue-600 transition"
+              >
+                {t("get_started")}
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
     </nav>
   );
 };
