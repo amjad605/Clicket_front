@@ -80,7 +80,7 @@ const Landing = () => {
         >
           <p
             className="
-    text-3xl md:text-4xl lg:text-5xl text-[rgb(11,53,88)] dark:text-white font-bold dark:bg-gray-900  md:w-screen md:ms-[6%] md:justify-center
+    text-3xl md:text-4xl lg:text-5xl text-[rgb(11,53,88)] dark:text-white font-bold dark:bg-gray-900  md:w-screen md:ms-[6%]  lg:ms-[6%] md:justify-center
   "
           >
             {t("explore_events")}

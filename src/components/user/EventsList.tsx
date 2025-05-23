@@ -34,7 +34,7 @@ const EventsLists = () => {
 
       {events.length > 0 ? (
         <>
-          <div className="grid   bg-white dark:bg-gray-900  items-center  justify-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-10">
+          <div className="grid   bg-white dark:bg-gray-900  items-center  justify-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6 gap-4 mt-10">
             {events.map((event) => (
               <EventCard key={event._id} event={event} />
             ))}

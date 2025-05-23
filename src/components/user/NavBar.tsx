@@ -325,6 +325,21 @@ const NavBar = () => {
               {t("manage_events")}
             </NavLink>
           )}
+          <button
+            onClick={handleLanguageChange}
+            className="flex items-center justify-center gap-2 px-4 py-2 w-full hover:bg-gray-100 dark:hover:bg-gray-800 rounded"
+          >
+            <FaLanguage />
+            <span>{i18n.language === "en" ? "العربية" : "English"}</span>
+          </button>
+
+          <button
+            onClick={toggleTheme}
+            className="flex items-center justify-center gap-2 px-4 py-2 w-full hover:bg-gray-100 dark:hover:bg-gray-800 rounded"
+          >
+            {theme === "light" ? <FaMoon /> : <FaSun />}
+            <span>{theme === "light" ? t("dark_mode") : t("light_mode")}</span>
+          </button>
 
           {isAuthenticated ? (
             <div className="flex flex-col items-center space-y-6 mt-4 w-full">
@@ -338,24 +353,6 @@ const NavBar = () => {
               </div>
 
               <div className="flex flex-col space-y-4 w-full max-w-xs">
-                <button
-                  onClick={handleLanguageChange}
-                  className="flex items-center justify-center gap-2 px-4 py-2 w-full hover:bg-gray-100 dark:hover:bg-gray-800 rounded"
-                >
-                  <FaLanguage />
-                  <span>{i18n.language === "en" ? "العربية" : "English"}</span>
-                </button>
-
-                <button
-                  onClick={toggleTheme}
-                  className="flex items-center justify-center gap-2 px-4 py-2 w-full hover:bg-gray-100 dark:hover:bg-gray-800 rounded"
-                >
-                  {theme === "light" ? <FaMoon /> : <FaSun />}
-                  <span>
-                    {theme === "light" ? t("dark_mode") : t("light_mode")}
-                  </span>
-                </button>
-
                 <button
                   onClick={handleLogout}
                   className="flex items-center justify-center gap-2 px-4 py-2 w-full hover:bg-gray-100 dark:hover:bg-gray-800 rounded text-red-500"
